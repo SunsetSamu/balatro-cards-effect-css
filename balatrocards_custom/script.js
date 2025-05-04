@@ -92,7 +92,7 @@
                     rotateY(${calcX * 6}deg)
                     ${baseTransform}`;
 
-                overlayTransform = `translateZ(5px) perspective(100px)
+                overlayTransform = `translateZ(10px) perspective(100px)
                     rotateX(${-calcY * 8}deg)
                     rotateY(${calcX * 8}deg)
                     scale(1.1)
