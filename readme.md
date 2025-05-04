@@ -74,4 +74,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## Acknowledgements
 
-Inspired by various creative card effects found on the web. The structure and effect implementation are intended as a customizable template for your projects.
+Inspired by the incredible team behind Balatro and it's aesthetics.
