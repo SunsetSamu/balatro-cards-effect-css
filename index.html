@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BALATRO EFFECT</title>
+    <style>
+        /* ------------------- Global Styles ------------------- */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffffff;
+            overflow: hidden;
+            transform: translateZ(0);
+        }
+
+        @media (-webkit-min-device-pixel-ratio: 0) {
+            .card,
+            .overlay {
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        /* ------------------- Item Container ------------------- */
+        .item-container {
+            position: relative;
+            width: 150px;
+            height: 210px;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.3s cubic-bezier(0.7, -3, 0.3, 3);
+            padding: 0.5lh;
+            
+            z-index: 50; /* Puedes agregar estilos personalizados aquí */
+        }
+
+        .item-container:hover {
+            transform: scale3d(1.3, 1.3, 1.3);
+            z-index: 999;
+        }
+
+        /* ------------------- Common Child Elements ------------------- */
+        .card,
+        .overlay,
+        .shadow {
+            backface-visibility: hidden;
+            will-change: transform;
+        }
+
+        /* ------------------- Card Styles ------------------- */
+        .card {
+            width: 150px;
+            height: 210px;
+            /* Puedes configurar la imagen base con un data attribute en cada contenedor */
+            background-color: #ffdada;
+            background-repeat: no-repeat;
+            background-position: right;
+            background-size: cover;
+            border-radius: 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translateZ(10px);
+            overflow: hidden;
+            image-rendering: pixelated;
+            transition: background-image 0.2s ease;
+        }
+
+        .item-container:hover .card {
+            /* Puedes configurar la imagen hover vía data attribute y actualizar la lógica JS para leerla */
+            background-position: center;
+        }
+
+        /* ------------------- Shadow Styles ------------------- */
+        .shadow {
+            width: 150px;
+            height: 210px;
+            background-color: rgba(0, 0, 0, 0.308);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.644);
+            border-radius: 20px;
+            position: absolute;
+            top: 10pt;
+            left: 0;
+            z-index: -1;
+            transform: translateZ(-10px);
+        }
+
+        /* ------------------- Overlay Styles ------------------- */
+        .overlay {
+            pointer-events: none;
+            width: 150%;
+            height: 150%;
+            /* Puedes configurar la imagen overlay con un data attribute en cada contenedor */
+            background-repeat: no-repeat;
+            background-size: 90%;
+            background-position: center;
+            image-rendering: pixelated;
+            position: absolute;
+            top: -25%;
+            left: -25%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            transform: translate(-50%, -50%) translateZ(20px);
+            z-index: 2;
+        }
+
+        .item-container:hover .overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- ------------------- Múltiples elementos con configuración individual ------------------- -->
+    <div class="item-container" data-card-src="https://static.wikitide.net/balatromodswiki/a/a6/Hearts_Teto%2C_Rei%2C_%26_IA_%28Vocalatro%29.png" data-hover-src="https://files.catbox.moe/79j7vy.jpg" data-overlay-src="https://files.catbox.moe/0om7bl.png">
+        <div class="overlay"></div>
+        <div class="card"></div>
+        <div class="shadow"></div>
+    </div>
+
+    <!-- Puedes duplicar y personalizar más contenedores -->
+    <div class="item-container" data-card-src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.wikitide.net%2Fbalatromodswiki%2F8%2F8b%2FHatsune_Miku_(Ceres).png&f=1&nofb=1&ipt=859eab8ef066e7df507e780ba707467c877268b26da29b35ab25c1be184e15cf" data-overlay-src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpng.pngtree.com%2Fpng-vector%2F20230903%2Fourmid%2Fpngtree-leek-3d-render-illustration-png-image_9965298.png&f=1&nofb=1&ipt=5c5e9c51856bc7afffc36add999aa2f295b6380c84ed28b30aebf2004c88646f">
+        <div class="overlay"></div>
+        <div class="card" style="background-position: center; background-size: 180px;"></div>
+        <div class="shadow"></div>
+    </div>
+
+    <script>
+        /* ------------------- Parámetros de animación ------------------- */
+        const NORMAL_SPEED = 0.05;
+        const SLOW_SPEED = 0.02;
+        const constrain = 0.5;
+
+        // Función para inicializar el efecto en cada contenedor
+        function initItem(itemContainer) {
+            // Elementos internos
+            const card = itemContainer.querySelector('.card');
+            const shadow = itemContainer.querySelector('.shadow');
+            const overlay = itemContainer.querySelector('.overlay');
+
+            // Configuración individual (opcional, según data attributes)
+            const defaultCardSrc = itemContainer.getAttribute("data-card-src");
+            const hoverCardSrc = itemContainer.getAttribute("data-hover-src");
+            const overlaySrc = itemContainer.getAttribute("data-overlay-src");
+            // Guarda la posición de fondo original (ya sea la definida en linea o la de CSS)
+            const defaultBgPosition = card.style.backgroundPosition || "right";
+            if (defaultCardSrc) {
+                card.style.backgroundImage = `url('${defaultCardSrc}')`;
+            }
+            
+            // Variables de animación
+            let currentAnimationSpeed = NORMAL_SPEED;
+            let angle = 0;
+            let calcX = 0;
+            let calcY = 0;
+            let mouseVerticalPosition = 0;  // Rango: 0 (arriba) a 1 (abajo)
+
+            // Eventos
+            itemContainer.addEventListener('mouseover', () => {
+                currentAnimationSpeed = SLOW_SPEED;
+                // Actualiza la imagen hover si se define
+                if (hoverCardSrc) {
+                    card.style.backgroundImage = `url('${hoverCardSrc}')`;
+                    card.style.backgroundPosition = 'center';
+                    card.style.backgroundSize = 'cover';
+                }
+                if (overlaySrc) {
+                    overlay.style.backgroundImage = `url('${overlaySrc}')`;
+                }
+            });
+
+            itemContainer.addEventListener('mouseout', () => {
+                currentAnimationSpeed = NORMAL_SPEED;
+                calcX = 0;
+                calcY = 0;
+                // Restaura imagen original y posición de fondo definida inicialmente
+                if (defaultCardSrc) {
+                    card.style.backgroundImage = `url('${defaultCardSrc}')`;
+                    card.style.backgroundPosition = defaultBgPosition;
+                }
+            });
+
+            itemContainer.addEventListener('mousemove', (e) => {
+                const { left, top, width, height } = itemContainer.getBoundingClientRect();
+                const x = e.clientX - left;
+                const y = e.clientY - top;
+                calcX = ((x - width / 1.5) / (width / 1.5)) * constrain;
+                calcY = ((y - height / 1.5) / (height / 1.5)) * constrain;
+                mouseVerticalPosition = 1 - (y / height);
+            });
+
+            // Función para construir la transformación base
+            const getBaseTransform = (dx, dy, rot) => {
+                return `translateZ(0) translateX(${dx}px) translateY(${dy}px) rotate(${rot}deg)`;
+            };
+
+            // Bucle principal de animación para este contenedor
+            function animate() {
+                const desplazamientoX = Math.sin(angle) * 3;
+                const desplazamientoY = Math.cos(angle) * 5;
+                const rotacion = Math.sin(angle * 2) * 2;
+                const baseTransform = getBaseTransform(desplazamientoX, desplazamientoY, rotacion);
+
+                let cardTransform = baseTransform;
+                let shadowTransform = baseTransform;
+                let overlayTransform = baseTransform;
+
+                if (currentAnimationSpeed === SLOW_SPEED) {
+                    const elevacionSombra = Math.min(Math.max((1 - mouseVerticalPosition) * 50, 0), 7);
+                    shadowTransform = `translateZ(-10px) translateX(${desplazamientoX + calcX * 3}px)
+                        translateY(${desplazamientoY + calcY * 3 - elevacionSombra}px) perspective(100px)
+                        rotateX(${calcY * 2}deg)
+                        rotateY(${-calcX * 2}deg)
+                        scale(1)
+                        ${baseTransform}`;
+    
+                    cardTransform = `translateZ(0px) perspective(100px)
+                        rotateX(${-calcY * 6}deg)
+                        rotateY(${calcX * 6}deg)
+                        ${baseTransform}`;
+    
+                    overlayTransform = `translateZ(5px) perspective(100px)
+                        rotateX(${-calcY * 8}deg)
+                        rotateY(${calcX * 8}deg)
+                        scale(1.1)
+                        ${baseTransform}`;
+                }
+
+                card.style.transform = cardTransform;
+                shadow.style.transform = shadowTransform;
+                overlay.style.transform = overlayTransform;
+
+                angle += currentAnimationSpeed;
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // Inicializa el efecto para cada .item-container encontrado en la página
+        document.querySelectorAll('.item-container').forEach(initItem);
+    </script>
+</body>
+</html>
