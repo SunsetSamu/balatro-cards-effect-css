@@ -4,243 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BALATRO EFFECT</title>
-    <style>
-        /* ------------------- Global Styles ------------------- */
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #ffffff;
-            overflow: hidden;
-            transform: translateZ(0);
-        }
+    <link rel="stylesheet" href="index.css">
 
-        @media (-webkit-min-device-pixel-ratio: 0) {
-            .card,
-            .overlay {
-                -webkit-transform: translate3d(0, 0, 0);
-                transform: translate3d(0, 0, 0);
-            }
-        }
+    <link rel="stylesheet" href="balatrocards_custom/styles.css">
+    <link rel="stylesheet" href="balatrocards_loyal/styles.css">
 
-        /* ------------------- Item Container ------------------- */
-        .item-container {
-            position: relative;
-            width: 150px;
-            height: 210px;
-            transform-style: preserve-3d;
-            perspective: 1000px;
-            transition: transform 0.3s cubic-bezier(0.7, -3, 0.3, 3);
-            padding: 0.5lh;
-            
-            z-index: 50; /* Puedes agregar estilos personalizados aquí */
-        }
-
-        .item-container:hover {
-            transform: scale3d(1.3, 1.3, 1.3);
-            z-index: 999;
-        }
-
-        /* ------------------- Common Child Elements ------------------- */
-        .card,
-        .overlay,
-        .shadow {
-            backface-visibility: hidden;
-            will-change: transform;
-        }
-
-        /* ------------------- Card Styles ------------------- */
-        .card {
-            width: 150px;
-            height: 210px;
-            /* Puedes configurar la imagen base con un data attribute en cada contenedor */
-            background-color: #ffdada;
-            background-repeat: no-repeat;
-            background-position: right;
-            background-size: cover;
-            border-radius: 20px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transform: translateZ(10px);
-            overflow: hidden;
-            image-rendering: pixelated;
-            transition: background-image 0.2s ease;
-        }
-
-        .item-container:hover .card {
-            /* Puedes configurar la imagen hover vía data attribute y actualizar la lógica JS para leerla */
-            background-position: center;
-        }
-
-        /* ------------------- Shadow Styles ------------------- */
-        .shadow {
-            width: 150px;
-            height: 210px;
-            background-color: rgba(0, 0, 0, 0.308);
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.644);
-            border-radius: 20px;
-            position: absolute;
-            top: 10pt;
-            left: 0;
-            z-index: -1;
-            transform: translateZ(-10px);
-        }
-
-        /* ------------------- Overlay Styles ------------------- */
-        .overlay {
-            pointer-events: none;
-            width: 150%;
-            height: 150%;
-            /* Puedes configurar la imagen overlay con un data attribute en cada contenedor */
-            background-repeat: no-repeat;
-            background-size: 90%;
-            background-position: center;
-            image-rendering: pixelated;
-            position: absolute;
-            top: -25%;
-            left: -25%;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            transform: translate(-50%, -50%) translateZ(20px);
-            z-index: 2;
-        }
-
-        .item-container:hover .overlay {
-            opacity: 1;
-        }
-    </style>
+    
 </head>
 <body>
-    <!-- ------------------- Múltiples elementos con configuración individual ------------------- -->
-    <div class="item-container" data-card-src="https://static.wikitide.net/balatromodswiki/a/a6/Hearts_Teto%2C_Rei%2C_%26_IA_%28Vocalatro%29.png" data-hover-src="https://files.catbox.moe/79j7vy.jpg" data-overlay-src="https://files.catbox.moe/0om7bl.png">
-        <div class="overlay"></div>
-        <div class="card"></div>
+
+<h1 style="text-align: center">Loyal Balatro Card effect:</h1>
+<div class="cards_1">
+    <div class="balatrocards-container" data-card-src="https://i.pinimg.com/736x/a8/a4/f5/a8a4f578c76b6e07f29b1971def7f7e1.jpg" data-hover-src="https://i.pinimg.com/736x/9c/bd/60/9cbd60071064dfe31a262831f3e57bc8.jpg" data-overlay-src="https://files.catbox.moe/0om7bl.png">
+        <div class="overlay" style="scale: 0.8; top: -25px"></div>
+        <div class="card" style="background-position: top;"></div>
         <div class="shadow"></div>
     </div>
-
-    <!-- Puedes duplicar y personalizar más contenedores -->
-    <div class="item-container" data-card-src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.wikitide.net%2Fbalatromodswiki%2F8%2F8b%2FHatsune_Miku_(Ceres).png&f=1&nofb=1&ipt=859eab8ef066e7df507e780ba707467c877268b26da29b35ab25c1be184e15cf" data-overlay-src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpng.pngtree.com%2Fpng-vector%2F20230903%2Fourmid%2Fpngtree-leek-3d-render-illustration-png-image_9965298.png&f=1&nofb=1&ipt=5c5e9c51856bc7afffc36add999aa2f295b6380c84ed28b30aebf2004c88646f">
-        <div class="overlay"></div>
+    <div class="balatrocards-container" data-card-src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.wikitide.net%2Fbalatromodswiki%2F8%2F8b%2FHatsune_Miku_(Ceres).png&f=1&nofb=1&ipt=859eab8ef066e7df507e780ba707467c877268b26da29b35ab25c1be184e15cf" data-overlay-src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpng.pngtree.com%2Fpng-vector%2F20230903%2Fourmid%2Fpngtree-leek-3d-render-illustration-png-image_9965298.png&f=1&nofb=1&ipt=5c5e9c51856bc7afffc36add999aa2f295b6380c84ed28b30aebf2004c88646f">
+        <div class="overlay" style="scale: 1.2; top: -30px; left: -70px;"></div>
         <div class="card" style="background-position: center; background-size: 180px;"></div>
         <div class="shadow"></div>
+    </div>    
+    <script src="balatrocards_loyal/script.js"></script>
+</div>
+<p style="text-align: center">Artists: @haru4aki and respective credits to the others</p>
+
+
+<h1 style="text-align: center">Custom Effect:</h1>
+<div class="cards_2">    
+
+    <div class="customcards-container" style="height: 150px; width: 150px;" data-card-src="https://i.pinimg.com/736x/fa/94/83/fa948306f993189f18b2b19e83ff0e67.jpg" data-hover-src="https://i.pinimg.com/736x/c5/ce/54/c5ce54e278fb5a85f8c6df0b5c889486.jpg" data-overlay-src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F4e%2Ff8%2F1f%2F4ef81fc6b6b61aa76f88f0bbfc104819.png&f=1&nofb=1&ipt=df96f011f5fe6b0645f940f999e7f320351eee476862b2ccbee3fc64dfb9c9d4">
+        <div class="overlay" style="scale: 0.6; background-size: cover; left: -32%; top: -30%; border-radius: 45px;"></div>
+        <div class="card" style="background-position: right; height: 150px; width: 150px;"></div>
+        <div class="shadow" style="height: 150px; width: 150px;"></div>
     </div>
 
-    <script>
-        /* ------------------- Parámetros de animación ------------------- */
-        const NORMAL_SPEED = 0.05;
-        const SLOW_SPEED = 0.02;
-        const constrain = 0.5;
+    <div class="customcards-container" style="height: 150px; width: 150px;" data-card-src="https://i.pinimg.com/736x/6f/05/c6/6f05c6dea348ce6ad1681f12566a801d.jpg" data-overlay-src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F08%2F11%2Ff7%2F0811f7e9bd3b2d4cdde77e797f75cd5e.png&f=1&nofb=1&ipt=0dd97e57cf8760f06dee6ffd0cff3587af1a6dc13903b8c36ab13ff948661feb">
+        <div class="overlay" style="scale: 0.6; background-size: cover; left: -30%; top: -30%; border-radius: 45px;"></div>
+        <div class="card" style="height: 150px; width: 150px;"></div>
+        <div class="shadow" style="height: 150px; width: 150px;"></div>
+    </div>
+    <script src="balatrocards_custom/script.js"></script>
+</div>
+<p style="text-align: center">Art by: nanji shao</p>
+<h3 style="text-align: center">Enjoy :3</h3>
 
-        // Función para inicializar el efecto en cada contenedor
-        function initItem(itemContainer) {
-            // Elementos internos
-            const card = itemContainer.querySelector('.card');
-            const shadow = itemContainer.querySelector('.shadow');
-            const overlay = itemContainer.querySelector('.overlay');
-
-            // Configuración individual (opcional, según data attributes)
-            const defaultCardSrc = itemContainer.getAttribute("data-card-src");
-            const hoverCardSrc = itemContainer.getAttribute("data-hover-src");
-            const overlaySrc = itemContainer.getAttribute("data-overlay-src");
-            // Guarda la posición de fondo original (ya sea la definida en linea o la de CSS)
-            const defaultBgPosition = card.style.backgroundPosition || "right";
-            if (defaultCardSrc) {
-                card.style.backgroundImage = `url('${defaultCardSrc}')`;
-            }
-            
-            // Variables de animación
-            let currentAnimationSpeed = NORMAL_SPEED;
-            let angle = 0;
-            let calcX = 0;
-            let calcY = 0;
-            let mouseVerticalPosition = 0;  // Rango: 0 (arriba) a 1 (abajo)
-
-            // Eventos
-            itemContainer.addEventListener('mouseover', () => {
-                currentAnimationSpeed = SLOW_SPEED;
-                // Actualiza la imagen hover si se define
-                if (hoverCardSrc) {
-                    card.style.backgroundImage = `url('${hoverCardSrc}')`;
-                    card.style.backgroundPosition = 'center';
-                    card.style.backgroundSize = 'cover';
-                }
-                if (overlaySrc) {
-                    overlay.style.backgroundImage = `url('${overlaySrc}')`;
-                }
-            });
-
-            itemContainer.addEventListener('mouseout', () => {
-                currentAnimationSpeed = NORMAL_SPEED;
-                calcX = 0;
-                calcY = 0;
-                // Restaura imagen original y posición de fondo definida inicialmente
-                if (defaultCardSrc) {
-                    card.style.backgroundImage = `url('${defaultCardSrc}')`;
-                    card.style.backgroundPosition = defaultBgPosition;
-                }
-            });
-
-            itemContainer.addEventListener('mousemove', (e) => {
-                const { left, top, width, height } = itemContainer.getBoundingClientRect();
-                const x = e.clientX - left;
-                const y = e.clientY - top;
-                calcX = ((x - width / 1.5) / (width / 1.5)) * constrain;
-                calcY = ((y - height / 1.5) / (height / 1.5)) * constrain;
-                mouseVerticalPosition = 1 - (y / height);
-            });
-
-            // Función para construir la transformación base
-            const getBaseTransform = (dx, dy, rot) => {
-                return `translateZ(0) translateX(${dx}px) translateY(${dy}px) rotate(${rot}deg)`;
-            };
-
-            // Bucle principal de animación para este contenedor
-            function animate() {
-                const desplazamientoX = Math.sin(angle) * 3;
-                const desplazamientoY = Math.cos(angle) * 5;
-                const rotacion = Math.sin(angle * 2) * 2;
-                const baseTransform = getBaseTransform(desplazamientoX, desplazamientoY, rotacion);
-
-                let cardTransform = baseTransform;
-                let shadowTransform = baseTransform;
-                let overlayTransform = baseTransform;
-
-                if (currentAnimationSpeed === SLOW_SPEED) {
-                    const elevacionSombra = Math.min(Math.max((1 - mouseVerticalPosition) * 50, 0), 7);
-                    shadowTransform = `translateZ(-10px) translateX(${desplazamientoX + calcX * 3}px)
-                        translateY(${desplazamientoY + calcY * 3 - elevacionSombra}px) perspective(100px)
-                        rotateX(${calcY * 2}deg)
-                        rotateY(${-calcX * 2}deg)
-                        scale(1)
-                        ${baseTransform}`;
-    
-                    cardTransform = `translateZ(0px) perspective(100px)
-                        rotateX(${-calcY * 6}deg)
-                        rotateY(${calcX * 6}deg)
-                        ${baseTransform}`;
-    
-                    overlayTransform = `translateZ(5px) perspective(100px)
-                        rotateX(${-calcY * 8}deg)
-                        rotateY(${calcX * 8}deg)
-                        scale(1.1)
-                        ${baseTransform}`;
-                }
-
-                card.style.transform = cardTransform;
-                shadow.style.transform = shadowTransform;
-                overlay.style.transform = overlayTransform;
-
-                angle += currentAnimationSpeed;
-                requestAnimationFrame(animate);
-            }
-            animate();
-        }
-
-        // Inicializa el efecto para cada .item-container encontrado en la página
-        document.querySelectorAll('.item-container').forEach(initItem);
-    </script>
 </body>
 </html>
