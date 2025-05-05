@@ -1,0 +1,8 @@
+body {
+    overflow: hidden;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.cards_1 {display: flex; justify-content: center; align-items: center; height: 370px; margin: -70px; overflow: hidden;}
+
+.cards_2 {display: flex; justify-content: center; align-items: center; height: 270px; margin: -50px; overflow: hidden;}
