@@ -69,39 +69,54 @@
 
         // Bucle principal de animación para este contenedor
         function animate() {
-            const desplazamientoX = Math.sin(angle) * 3;
-            const desplazamientoY = Math.cos(angle) * 5;
-            const rotacion = Math.sin(angle * 2) * 2;
+            const desplazamientoX = Math.sin(angle) * 0.5;
+            const desplazamientoY = Math.cos(angle) * 0.5;
+            const rotacion = Math.sin(angle * 2) * 1;
             const baseTransform = getBaseTransform(desplazamientoX, desplazamientoY, rotacion);
-
-            let cardTransform = baseTransform;
-            let shadowTransform = baseTransform;
-            let overlayTransform = baseTransform;
 
             if (currentAnimationSpeed === NORMAL_SPEED) {
                 const elevacionSombra = Math.min(Math.max((1 - mouseVerticalPosition) * 50, 0), 7);
-                shadowTransform = `translateZ(-10px) translateX(${desplazamientoX + calcX * 3}px)
-                    translateY(${desplazamientoY + calcY * 3 - elevacionSombra}px) perspective(100px)
-                    rotateX(${calcY * 2}deg)
-                    rotateY(${-calcX * 2}deg)
-                    scale(1)
-                    ${baseTransform}`;
-
-                cardTransform = `translateZ(0px) perspective(100px)
-                    rotateX(${-calcY * 6}deg)
-                    rotateY(${calcX * 6}deg)
-                    ${baseTransform}`;
-
-                overlayTransform = `translateZ(5px) perspective(100px)
-                    rotateX(${-calcY * 8}deg)
-                    rotateY(${calcX * 8}deg)
-                    scale(1.1)
-                    ${baseTransform}`;
+                const cardTransform = `translateZ(0px) perspective(100px)
+                        rotateX(${-calcY * 6}deg)
+                        rotateY(${calcX * 6}deg)
+                        ${baseTransform}`;
+                const shadowTransform = `translateZ(-10px) translateX(${desplazamientoX + calcX * 3}px)
+                        translateY(${desplazamientoY + calcY * 3 - elevacionSombra}px) perspective(100px)
+                        rotateX(${calcY * 2}deg)
+                        rotateY(${-calcX * 2}deg)
+                        scale(1)
+                        ${baseTransform}`;
+                const overlayTransform = `translateZ(5px) perspective(100px)
+                        rotateX(${-calcY * 8}deg)
+                        rotateY(${calcX * 8}deg)
+                        scale(1.1)
+                        ${baseTransform}`;
+                card.style.transform = cardTransform;
+                shadow.style.transform = shadowTransform;
+                overlay.style.transform = overlayTransform;
+            } else {
+                // Movimiento circular simulado en SLOW_SPEED sin detectar el mouse
+                const simX = Math.cos(angle) * constrain;
+                const simY = Math.sin(angle) * constrain;
+                const cardTransform = `translateZ(0px) perspective(100px)
+                        rotateX(${-simY * 6}deg)
+                        rotateY(${simX * 6}deg)
+                        ${baseTransform}`;
+                const shadowTransform = `translateZ(-10px) translateX(${desplazamientoX + simX * 5}px)
+                        translateY(${desplazamientoY + simY * 9 - 8}px) perspective(100px)
+                        rotateX(${simY * 2}deg)
+                        rotateY(${-simX / 2}deg)
+                        scale(0.95)
+                        ${baseTransform}`;
+                const overlayTransform = `translateZ(5px) perspective(100px)
+                        rotateX(${-simY * 8}deg)
+                        rotateY(${simX * 8}deg)
+                        scale(1.1)
+                        ${baseTransform}`;
+                card.style.transform = cardTransform;
+                shadow.style.transform = shadowTransform;
+                overlay.style.transform = overlayTransform;
             }
-
-            card.style.transform = cardTransform;
-            shadow.style.transform = shadowTransform;
-            overlay.style.transform = overlayTransform;
 
             angle += currentAnimationSpeed;
             requestAnimationFrame(animate);
