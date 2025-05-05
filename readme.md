@@ -2,27 +2,60 @@
 
 # Balatro Card Effect Recreation
 
-This project recreates an interactive card effect using HTML, CSS, and JavaScript. Each card is configured individually and reacts to mouse movements and hover events. The project uses data attributes to allow customization of images and styles for multiple cards.
+This project recreates an interactive card effect using HTML, CSS, and JavaScript. Each card is individually configured via data attributes and reacts dynamically to mouse movements and hover events.
+
+## Overview
+
+The effect creates a 3D illusion with smooth animations when interacting with each card. There are two distinct variants available:
+
+- **Loyal Effect:**  
+  Tries to recreate the original effect from Balatro.
+
+- **Custom Effect:**  
+  Provides a more subtle interaction by slowing down the animation when hovered and speeding up on mouse exit.
 
 ## How It Works
 
 - **HTML Structure:**  
-  The main element is a container (`.item-container`) that holds three main elements:
-  - `.card`: The visual card itself.
-  - `.overlay`: An overlay that appears on hover.
-  - `.shadow`: A shadow element to give depth.
+  Each card is wrapped in an `.item-container` that includes:
+  - `.card`: The primary visual element.
+  - `.overlay`: An overlay element that appears on hover.
+  - `.shadow`: A shadow element to add depth.
 
 - **Data Attributes:**  
-  Each container uses data attributes to configure:
-  - `data-card-src`: The default background image for the card.
-  - `data-hover-src`: The image shown when hovering (optional).
+  Configure each card by setting:
+  - `data-card-src`: The default background image.
+  - `data-hover-src`: The image used when the card is hovered (optional).
   - `data-overlay-src`: The overlay image (optional).
 
 - **CSS:**  
-  The CSS is sectioned and includes global styles, container styles, and specific styles for the card, overlay, and shadow. This makes it easy to update or override styles for individual elements if needed.
+  The CSS is organized into sections handling global styles, container styles, and specific styles for the card, overlay, and shadow. Each effect variant has its own style adjustments.
 
 - **JavaScript:**  
-  A single script applies an animation effect to each `.item-container`. It uses event listeners (`mouseover`, `mouseout`, and `mousemove`) to modify the transform properties of each element and create the dynamic effect. Each card gets its own effect instance based on its configuration.
+  A script attaches event listeners (`mouseover`, `mouseout`, `mousemove`) to each `.item-container` to update transform properties and create the interactive animation. Animation parameters like `NORMAL_SPEED`, `SLOW_SPEED`, and `constrain` dictate the intensity and behavior of the effect.
+
+## Effect Variants
+
+### Loyal Effect
+
+- **Behavior:**  
+  - Speeds up animation during hover.
+  - Applies continuous movement when the mouse is not over the card.
+  - The card image may change on hover if a hover source is provided.
+
+- **Files:**  
+  - Script: `balatrocards_loyal/script.js`
+  - Styles: `balatrocards_loyal/styles.css`
+
+### Custom Effect
+
+- **Behavior:**  
+  - Slows down animation when hovered, then speeds up when the mouse exits.
+  - Provides a more controlled and subtle interactive feel.
+  
+- **Files:**  
+  - Script: `balatrocards_custom/script.js`
+  - Styles: `balatrocards_custom/styles.css`
 
 ## How to Use
 
@@ -30,41 +63,33 @@ This project recreates an interactive card effect using HTML, CSS, and JavaScrip
    Get a copy of the project files to your local machine.
 
 2. **Customize Cards:**  
-   In the HTML file, duplicate the `.item-container` block to add more cards. Configure each card using:
-   - `data-card-src` for the default image.
-   - `data-hover-src` for the hover image.
-   - `data-overlay-src` for the overlay image.
+   Duplicate the `.item-container` block in your HTML file to add additional cards. Configure each card using:
+   - `data-card-src`
+   - `data-hover-src`
+   - `data-overlay-src`
 
-   Example:
+   **Example:**
+
    ```html
    <div class="item-container" data-card-src="default-image-url.png" data-hover-src="hover-image-url.jpg" data-overlay-src="overlay-image-url.png">
        <div class="overlay"></div>
-       <div class="card" style="background-position: center; background-size: 180px;"></div>
+       <div class="card"></div>
        <div class="shadow"></div>
    </div>
    ```
 
 3. **Customize Styles:**  
-   - Use the CSS sections to adjust the style of the cards, overlay, and shadows.
-   - Inline styles can be applied in the `.card` or modified in the CSS to suit your design.
+   Adjust the CSS in the corresponding style files (for Loyal or Custom effects) to suit your design preferences.
 
 4. **View the Project:**  
-   Open the HTML file in your browser. When you hover over a card, you will see the interactive effect:
-   - The card image changes (if a hover image is provided).
-   - The overlay appears.
-   - The card and shadow animate based on mouse movement.
-
-## Requirements
-
-- Modern web browser with support for CSS3 and JavaScript.
-- No additional frameworks or libraries are required.
+   Open the HTML file in a modern web browser that supports CSS3 and JavaScript. Hover over the cards to experience the interactive effect.
 
 ## Customization
 
-- **Images & Background:**  
-  You can easily swap out images by updating the corresponding data attributes.
+- **Images & Backgrounds:**  
+  Swap images by updating the data attributes in the HTML.
 - **Animations:**  
-  Modify the animation parameters (such as `NORMAL_SPEED`, `SLOW_SPEED`, or `constrain`) in the JavaScript section to adjust the effect intensity.
+  Modify parameters in the JavaScript files to adjust the animation speed and effect intensity.
 - **Responsive Design:**  
   The container is designed to be centered on the viewport. You can modify the CSS if you wish to adjust the layout.
 
